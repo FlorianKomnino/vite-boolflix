@@ -9,6 +9,7 @@ export default {
             apiUriMovies: "https://api.themoviedb.org/3/search/movie",
             apiUriSeries: "https://api.themoviedb.org/3/search/tv",
             apiKey: "4b169a37522866656c0ab921628fb40d",
+            userInput: "",
             userInputMovies: "",
             userInputSeries: "",
 
@@ -16,12 +17,11 @@ export default {
     },
 
     methods: {
-        getMovies(searchedMovie) {
-            this.store.movieToSearch = searchedMovie;
+        getMovies() {
             axios.get(this.apiUriMovies, {
                 params: {
                     api_key: this.apiKey,
-                    query: this.store.movieToSearch,
+                    query: this.userInput,
                 }
             })
                 .then((response) => {
@@ -33,12 +33,11 @@ export default {
                 })
         },
 
-        getSeries(searchedSerie) {
-            this.store.serieToSearch = searchedSerie;
+        getSeries() {
             axios.get(this.apiUriSeries, {
                 params: {
                     api_key: this.apiKey,
-                    query: this.store.serieToSearch,
+                    query: this.userInput,
                 }
             })
                 .then((response) => {
@@ -53,6 +52,15 @@ export default {
         getImagePath: function (imgPath) {
             return new URL(imgPath, import.meta.url).href;
         },
+
+        getSeriesAndMoviesWithCheck() {
+            this.getMovies()
+            this.getSeries()
+        },
+
+        isFlagWorking() {
+            return "flag for this language not found";
+        }
     },
 
     created() {
@@ -72,16 +80,8 @@ export default {
 
             <div class="col12">
                 <label for="inputForMovies">Cerca un film</label>
-                <input type="text" id="inputForMovies" class="text" v-model="userInputMovies">
-                <div class="btn btn-primary" @click="getMovies(userInputMovies), getSeries(userInputSeries)">
-                    Search
-                </div>
-            </div>
-
-            <div class="col12">
-                <label for="inputForSeries">Cerca una serie TV</label>
-                <input type="text" id="inputForSeries" class="text" v-model="userInputSeries">
-                <div class="btn btn-primary" @click="getSeries(userInputSeries)">
+                <input type="text" id="inputForMovies" class="text" v-model="userInput">
+                <div class="btn btn-primary" @click="getSeriesAndMoviesWithCheck(userInput)">
                     Search
                 </div>
             </div>
@@ -97,7 +97,8 @@ export default {
                         </h2>
                         <p>
                         <figure class="flagImg">
-                            <img :src="getImagePath(`../assets/imgs/flags/${movie.original_language}.svg`)" alt="">
+                            <img :src="getImagePath(`../assets/imgs/flags/${movie.original_language}.svg`)"
+                                alt="flag for this language not found">
                         </figure>
                         <br>
                         {{ movie.original_language }}
