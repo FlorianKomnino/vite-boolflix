@@ -1,11 +1,69 @@
 <script>
+import axios from 'axios';
+import { store } from "../store.js";
 
+export default {
+    data() {
+        return {
+            store,
+            apiUri: "https://api.themoviedb.org/3/search/movie",
+            apiKey: "4b169a37522866656c0ab921628fb40d",
+
+        }
+    },
+
+    methods: {
+        getMovies() {
+            axios.get(this.apiUri, {
+                params: {
+                    api_key: this.apiKey,
+                    query: this.store.searchedString,
+                }
+            })
+                .then((response) => {
+                    console.log(response);
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
+    },
+
+    created() {
+        this.getMovies()
+    }
+}
 </script>
 
 <template>
+    <div class="container">
+        <div class="row">
 
+            <div class="col12">
+                <h1>
+                    BoolFlix
+                </h1>
+            </div>
+
+            <div class="col12">
+                <input type="text" class="text">
+                <div class="btn btn-primary">
+                    Search
+                </div>
+            </div>
+
+            <div class="col-12">
+                <ul>
+                    <li v-for="movie in store.moviesList">
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </template>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@use "bootstrap" as *;
 </style>
