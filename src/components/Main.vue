@@ -29,7 +29,11 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 })
-        }
+        },
+
+        getImagePath: function (imgPath) {
+            return new URL(imgPath, import.meta.url).href;
+        },
     },
 
     created() {
@@ -64,9 +68,13 @@ export default {
                             {{ movie.original_title }}
                         </h2>
                         <p>
-                            {{ movie.original_language }}
-                            <br>
-                            {{ movie.vote_average }}
+                        <figure class="flagImg">
+                            <img :src="getImagePath(`../assets/imgs/flags/${movie.original_language}.svg`)" alt="">
+                        </figure>
+                        <br>
+                        {{ movie.original_language }}
+                        <br>
+                        {{ movie.vote_average }}
                         </p>
 
                     </li>
@@ -78,4 +86,16 @@ export default {
 
 <style lang="scss" scoped>
 @use "bootstrap" as *;
+
+figure.flagImg {
+    width: 40px;
+    height: 30px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 2px solid black;
+    }
+}
 </style>
