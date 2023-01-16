@@ -8,16 +8,18 @@ export default {
             store,
             apiUri: "https://api.themoviedb.org/3/search/movie",
             apiKey: "4b169a37522866656c0ab921628fb40d",
+            userInput: "",
 
         }
     },
 
     methods: {
-        getMovies() {
+        getMovies(searchedString) {
+            this.store.stringToSearch = searchedString;
             axios.get(this.apiUri, {
                 params: {
                     api_key: this.apiKey,
-                    query: this.store.searchedString,
+                    query: this.store.stringToSearch,
                 }
             })
                 .then((response) => {
@@ -31,7 +33,6 @@ export default {
     },
 
     created() {
-        this.getMovies()
     }
 }
 </script>
@@ -47,8 +48,8 @@ export default {
             </div>
 
             <div class="col12">
-                <input type="text" class="text">
-                <div class="btn btn-primary">
+                <input type="text" class="text" v-model="userInput">
+                <div class="btn btn-primary" @click="getMovies(userInput)">
                     Search
                 </div>
             </div>
