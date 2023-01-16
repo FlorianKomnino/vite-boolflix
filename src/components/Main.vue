@@ -21,8 +21,8 @@ export default {
                 }
             })
                 .then((response) => {
-                    console.log(response);
-
+                    console.log(response.data.results);
+                    this.store.moviesList = response.data.results;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -56,6 +56,17 @@ export default {
             <div class="col-12">
                 <ul>
                     <li v-for="movie in store.moviesList">
+                        <h1>
+                            {{ movie.title }}
+                        </h1>
+                        <h2>
+                            {{ movie.original_title }}
+                        </h2>
+                        <p>
+                            {{ movie.original_language }}
+                            <br>
+                            {{ movie.vote_average }}
+                        </p>
 
                     </li>
                 </ul>
