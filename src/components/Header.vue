@@ -16,8 +16,6 @@ export default {
             apiUriSeries: "https://api.themoviedb.org/3/search/tv",
             apiKey: "4b169a37522866656c0ab921628fb40d",
             userInput: "",
-            userInputMovies: "",
-            userInputSeries: "",
             flagsArray: [
                 "en",
                 "es",
