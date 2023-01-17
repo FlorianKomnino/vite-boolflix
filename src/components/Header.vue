@@ -67,6 +67,7 @@ export default {
 
         getSeriesAndMoviesWithCheck() {
             if (this.userInput.length === 0) {
+                this.store.isResearchActive = false;
                 this.isResearchActive = false;
                 this.store.seriesList = [];
                 this.store.moviesList = [];
@@ -82,24 +83,50 @@ export default {
 </script>
 
 <template>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>
+                    BoolFlix
+                </h1>
+            </div>
 
-    <div class="col12">
-        <h1>
-            BoolFlix
-        </h1>
-    </div>
-
-    <div class="col12">
-        <label for="inputForMovies">Cerca un film</label>
-        <input type="text" id="inputForMovies" class="text" v-model="userInput">
-        <div class="btn btn-primary" @click="getSeriesAndMoviesWithCheck(userInput)">
-            Search
+            <div class="col-12">
+                <label for="inputForMovies">Cerca un film</label>
+                <input type="text" id="inputForMovies" class="text" v-model="userInput">
+                <div class="btn btn-primary" @click="getSeriesAndMoviesWithCheck(userInput)">
+                    Search
+                </div>
+            </div>
         </div>
     </div>
-
     <Main />
 </template>
 
 <style lang="scss" scoped>
+@use "../style/partials/variables" as *;
 @use "bootstrap" as *;
+
+h1 {
+    width: 100%;
+    padding: 1.25rem 0 1.25rem 1rem;
+    font-weight: 600;
+    font-size: 5rem;
+    color: $boolflix_red;
+}
+
+
+div.container label {
+    color: white;
+    padding: 1rem;
+}
+
+div.container input {
+    height: 35px;
+}
+
+div.col-12 div {
+    margin: 1rem;
+    width: 120px;
+}
 </style>

@@ -10,9 +10,9 @@ export const store = reactive({
     flagsArray: [
         "en",
         "es",
-        "ja",
-        "it",
         "fr",
+        "it",
+        "ja",
     ],
 
     basePathForPosters: "https://image.tmdb.org/t/p/w342/",

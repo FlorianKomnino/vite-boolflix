@@ -18,10 +18,18 @@ export default {
 </script>
 
 <template>
-  <Header />
+  <div class="wrapper">
+
+    <Header />
+  </div>
 </template>
 
 <style lang="scss">
 @use "./style/general.scss" as *;
 @use "./style/partials/variables.scss" as *;
+
+div.wrapper {
+  background-color: black;
+  min-height: 100vw;
+}
 </style>
