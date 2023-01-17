@@ -49,7 +49,7 @@ export default {
                 }
             })
                 .then((response) => {
-                    console.log(response);
+                    console.log(response.data.results);
                     this.store.seriesList = response.data.results;
                 })
                 .catch(function (error) {
@@ -104,7 +104,7 @@ export default {
                         <h1>
                             {{ movie.title }}
                         </h1>
-                        <img :src="basePathForPosters + movie.poster_path" alt="">
+                        <img :src="basePathForPosters + movie.poster_path" alt="Poster for this movie not found">
                         <h2>
                             {{ movie.original_title }}
                         </h2>
@@ -131,6 +131,8 @@ export default {
                         <h1>
                             {{ serie.name }}
                         </h1>
+                        <img :src="basePathForPosters + serie.poster_path" alt="Poster fo this TV show not found">
+
                         <h2>
                             {{ serie.original_name }}
                         </h2>
