@@ -17,4 +17,5 @@ export const store = reactive({
 
     basePathForPosters: "https://image.tmdb.org/t/p/w342/",
 
+    isResearchActive: false,
 })
