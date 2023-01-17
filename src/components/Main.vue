@@ -20,28 +20,35 @@ export default {
                 "it",
                 "fr",
             ],
+            isResearchActive: false,
 
         }
     },
 
     methods: {
         getMovies() {
-            axios.get(this.apiUriMovies, {
-                params: {
-                    api_key: this.apiKey,
-                    query: this.userInput,
-                }
-            })
-                .then((response) => {
-                    console.log(response.data.results);
-                    this.store.moviesList = response.data.results;
+            if (this.isResearchActive) {
+                this.store.moviesList = [];
+                this.isResearchActive = false;
+            } else {
+                axios.get(this.apiUriMovies, {
+                    params: {
+                        api_key: this.apiKey,
+                        query: this.userInput,
+                    }
                 })
-                .catch(function (error) {
-                    console.log(error);
-                })
+                    .then((response) => {
+                        console.log(response.data.results);
+                        this.store.moviesList = response.data.results;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
         },
 
         getSeries() {
+            this.isResearchActive = true;
             axios.get(this.apiUriSeries, {
                 params: {
                     api_key: this.apiKey,
@@ -62,8 +69,24 @@ export default {
         },
 
         getSeriesAndMoviesWithCheck() {
-            this.getMovies()
-            this.getSeries()
+
+            if (this.userInput.length === 0) {
+                this.isResearchActive = false;
+                this.store.seriesList = [];
+                this.store.moviesList = [];
+            }
+            else if (this.isResearchActive === true && this.userInput.length > 0) {
+                this.store.seriesList = [];
+                this.store.moviesList = [];
+                this.getMovies()
+                this.getSeries()
+            }
+            else if (this.isResearchActive === false && this.userInput.length > 0) {
+                this.getMovies()
+                this.getSeries()
+            }
+
+
         },
 
         isFlagWorking() {
@@ -96,10 +119,10 @@ export default {
             </div>
 
             <div class="col-12">
-                <h1>
+                <h1 v-if="isResearchActive">
                     Movies
                 </h1>
-                <ul>
+                <ul v-if="isResearchActive">
                     <li v-for="movie in store.moviesList">
                         <h1>
                             {{ movie.title }}
@@ -124,11 +147,11 @@ export default {
                     </li>
                 </ul>
 
-                <h1>
+                <h1 v-if="isResearchActive">
                     Series
                 </h1>
 
-                <ul>
+                <ul v-if="isResearchActive">
                     <li v-for="serie in store.seriesList">
                         <h1>
                             {{ serie.name }}
