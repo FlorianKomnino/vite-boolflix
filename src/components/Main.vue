@@ -117,6 +117,7 @@ export default {
                                 Flag not found. Language: {{ movie.original_language }}
                             </p>
                         </figure>
+                        <i class="fa-solid fa-plus"></i>
                         {{ Math.ceil((movie.vote_average) / 2) }}
                         </p>
                     </li>
@@ -147,7 +148,8 @@ export default {
                         <br>
                         {{ serie.original_language }}
                         <br>
-                        {{ serie.vote_average }}
+                        <i class="fa-solid fa-plus"></i>
+                        {{ Math.ceil((serie.vote_average) / 2) }}
                         </p>
                     </li>
                 </ul>
