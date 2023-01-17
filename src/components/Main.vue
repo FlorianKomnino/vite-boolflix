@@ -2,9 +2,13 @@
 import axios from 'axios';
 import { store } from "../store.js";
 
-import Main from './Main.vue';
+import CardComponent from './CardComponent.vue';
 
 export default {
+    components: {
+        CardComponent,
+    },
+
     data() {
         return {
             name: "Main",
@@ -118,62 +122,20 @@ export default {
                 <h1 v-if="isResearchActive">
                     Movies
                 </h1>
-                <ul v-if="isResearchActive">
-                    <li v-for="movie in store.moviesList">
-                        <h1>
-                            {{ movie.title }}
-                        </h1>
-                        <img :src="basePathForPosters + movie.poster_path" alt="Poster for this movie not found">
-                        <h2>
-                            {{ movie.original_title }}
-                        </h2>
-                        <p>
-                        <figure class="flagImg">
-                            <img v-if="flagsArray.includes(movie.original_language)"
-                                :src="getImagePath(`../assets/imgs/flags/${movie.original_language}.svg`)"
-                                alt="flag for this language not found">
-                            <p class="alterantiveTextToFlag" v-else>
-                                Flag not found. Language: {{ movie.original_language }}
-                            </p>
-                        </figure>
-                        <i v-for="star in Math.ceil((movie.vote_average) / 2)" class="fa-solid fa-star"></i>
-                        <i v-for="missingStar in (5 - Math.ceil((movie.vote_average) / 2))"
-                            class="fa-regular fa-star"></i>
-                        </p>
-                    </li>
-                </ul>
+
+
+
+                <CardComponent v-for="movie in store.moviesList" :endOfPosterPath="movie.poster_path"
+                    :title="movie.title" :originalTitle="movie.original_title"
+                    :originalLanguage="movie.original_language" :voteAverage="movie.vote_average" />
 
                 <h1 v-if="isResearchActive">
                     Series
                 </h1>
 
-                <ul v-if="isResearchActive">
-                    <li v-for="serie in store.seriesList">
-                        <h1>
-                            {{ serie.name }}
-                        </h1>
-                        <img :src="basePathForPosters + serie.poster_path" alt="Poster fo this TV show not found">
-
-                        <h2>
-                            {{ serie.original_name }}
-                        </h2>
-                        <p>
-                        <figure class="flagImg">
-                            <img v-if="getImagePath(`../assets/imgs/flags/${serie.original_language}.svg`)"
-                                :src="getImagePath(`../assets/imgs/flags/${serie.original_language}.svg`)" alt="">
-                            <p v-else>
-                                The language is: {{ serie.original_language }}
-                            </p>
-                        </figure>
-                        <br>
-                        {{ serie.original_language }}
-                        <br>
-                        <i v-for="star in Math.ceil((serie.vote_average) / 2)" class="fa-solid fa-star"></i>
-                        <i v-for="missingStar in (5 - Math.ceil((serie.vote_average) / 2))"
-                            class="fa-regular fa-star"></i>
-                        </p>
-                    </li>
-                </ul>
+                <CardComponent v-for="serie in store.seriesList" :endOfPosterPath="serie.poster_path"
+                    :title="serie.name" :originalTitle="serie.name" :originalLanguage="serie.original_language"
+                    :voteAverage="serie.vote_average" />
             </div>
         </div>
     </div>

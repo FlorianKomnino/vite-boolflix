@@ -26,7 +26,11 @@ export default {
 
         getEmptyStars(voteOutOfTen) {
             return (5 - Math.ceil((voteOutOfTen) / 2))
-        }
+        },
+
+        getImagePath: function (imgPath) {
+            return new URL(imgPath, import.meta.url).href;
+        },
     }
 }
 
@@ -61,5 +65,5 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@use "bootstrap.scss" as *;
+@use "../../node_modules/bootstrap" as *;
 </style>
