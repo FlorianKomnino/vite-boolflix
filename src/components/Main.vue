@@ -9,6 +9,7 @@ export default {
             apiUriMovies: "https://api.themoviedb.org/3/search/movie",
             apiUriSeries: "https://api.themoviedb.org/3/search/tv",
             apiKey: "4b169a37522866656c0ab921628fb40d",
+            basePathForPosters: "https://image.tmdb.org/t/p/w342/",
             userInput: "",
             userInputMovies: "",
             userInputSeries: "",
@@ -57,7 +58,6 @@ export default {
         },
 
         getImagePath: function (imgPath) {
-            console.log(imgPath);
             return new URL(imgPath, import.meta.url).href;
         },
 
@@ -96,11 +96,15 @@ export default {
             </div>
 
             <div class="col-12">
+                <h1>
+                    Movies
+                </h1>
                 <ul>
                     <li v-for="movie in store.moviesList">
                         <h1>
                             {{ movie.title }}
                         </h1>
+                        <img :src="basePathForPosters + movie.poster_path" alt="">
                         <h2>
                             {{ movie.original_title }}
                         </h2>
@@ -116,7 +120,13 @@ export default {
                         {{ movie.vote_average }}
                         </p>
                     </li>
+                </ul>
 
+                <h1>
+                    Series
+                </h1>
+
+                <ul>
                     <li v-for="serie in store.seriesList">
                         <h1>
                             {{ serie.name }}
