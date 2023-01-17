@@ -117,8 +117,9 @@ export default {
                                 Flag not found. Language: {{ movie.original_language }}
                             </p>
                         </figure>
-                        <i class="fa-solid fa-plus"></i>
-                        {{ Math.ceil((movie.vote_average) / 2) }}
+                        <i v-for="star in Math.ceil((movie.vote_average) / 2)" class="fa-solid fa-star"></i>
+                        <i v-for="missingStar in (5 - Math.ceil((movie.vote_average) / 2))"
+                            class="fa-regular fa-star"></i>
                         </p>
                     </li>
                 </ul>
@@ -148,8 +149,9 @@ export default {
                         <br>
                         {{ serie.original_language }}
                         <br>
-                        <i class="fa-solid fa-plus"></i>
-                        {{ Math.ceil((serie.vote_average) / 2) }}
+                        <i v-for="star in Math.ceil((serie.vote_average) / 2)" class="fa-solid fa-star"></i>
+                        <i v-for="missingStar in (5 - Math.ceil((serie.vote_average) / 2))"
+                            class="fa-regular fa-star"></i>
                         </p>
                     </li>
                 </ul>
