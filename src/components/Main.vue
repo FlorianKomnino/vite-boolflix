@@ -2,9 +2,12 @@
 import axios from 'axios';
 import { store } from "../store.js";
 
+import Main from './Main.vue';
+
 export default {
     data() {
         return {
+            name: "Main",
             store,
             apiUriMovies: "https://api.themoviedb.org/3/search/movie",
             apiUriSeries: "https://api.themoviedb.org/3/search/tv",
@@ -74,14 +77,7 @@ export default {
                 this.isResearchActive = false;
                 this.store.seriesList = [];
                 this.store.moviesList = [];
-            }
-            else if (this.isResearchActive === true && this.userInput.length > 0) {
-                this.store.seriesList = [];
-                this.store.moviesList = [];
-                this.getMovies()
-                this.getSeries()
-            }
-            else if (this.isResearchActive === false && this.userInput.length > 0) {
+            } else {
                 this.getMovies()
                 this.getSeries()
             }

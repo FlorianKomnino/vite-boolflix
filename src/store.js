@@ -6,4 +6,15 @@ export const store = reactive({
     stringToSearch: "",
     movieToSearch: "",
     serieToSearch: "",
+
+    flagsArray: [
+        "en",
+        "es",
+        "ja",
+        "it",
+        "fr",
+    ],
+
+    basePathForPosters: "https://image.tmdb.org/t/p/w342/",
+
 })
