@@ -11,6 +11,7 @@ export default {
         originalTitle: String,
         originalLanguage: String,
         voteAverage: Number,
+        componentOverview: String,
     },
 
     data() {
@@ -55,6 +56,10 @@ export default {
                 </figure>
                 <i v-for="star in getFullStars(voteAverage)" class="fa-solid fa-star"></i>
                 <i v-for="missingStar in getEmptyStars(voteAverage)" class="fa-regular fa-star"></i>
+                <br>
+                <span>
+                    {{ componentOverview }}
+                </span>
             </div>
         </figure>
     </div>
@@ -77,11 +82,15 @@ img {
 figure {
     text-align: center;
     position: relative;
+}
 
-
+span {
+    color: white;
 }
 
 figure:hover {
+    overflow: hidden;
+
     img.posterWallpaper {
         opacity: 0.3;
     }

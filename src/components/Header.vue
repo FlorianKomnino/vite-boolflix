@@ -28,28 +28,22 @@ export default {
 
     methods: {
         getMovies() {
-            if (this.store.isResearchActive) {
-                this.store.moviesList = [];
-                this.store.isResearchActive = false;
-            } else {
-                axios.get(this.apiUriMovies, {
-                    params: {
-                        api_key: this.apiKey,
-                        query: this.userInput,
-                    }
+            axios.get(this.apiUriMovies, {
+                params: {
+                    api_key: this.apiKey,
+                    query: this.userInput,
+                }
+            })
+                .then((response) => {
+                    console.log(response.data.results);
+                    this.store.moviesList = response.data.results;
                 })
-                    .then((response) => {
-                        console.log(response.data.results);
-                        this.store.moviesList = response.data.results;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
-            }
+                .catch(function (error) {
+                    console.log(error);
+                })
         },
 
         getSeries() {
-            this.store.isResearchActive = true;
             axios.get(this.apiUriSeries, {
                 params: {
                     api_key: this.apiKey,
@@ -68,10 +62,10 @@ export default {
         getSeriesAndMoviesWithCheck() {
             if (this.userInput.length === 0) {
                 this.store.isResearchActive = false;
-                this.isResearchActive = false;
                 this.store.seriesList = [];
                 this.store.moviesList = [];
             } else {
+                this.store.isResearchActive = true;
                 this.getMovies()
                 this.getSeries()
             }
