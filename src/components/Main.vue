@@ -12,6 +12,13 @@ export default {
             userInput: "",
             userInputMovies: "",
             userInputSeries: "",
+            flagsArray: [
+                "en",
+                "es",
+                "ja",
+                "it",
+                "fr",
+            ],
 
         }
     },
@@ -50,6 +57,7 @@ export default {
         },
 
         getImagePath: function (imgPath) {
+            console.log(imgPath);
             return new URL(imgPath, import.meta.url).href;
         },
 
@@ -60,7 +68,8 @@ export default {
 
         isFlagWorking() {
             return "flag for this language not found";
-        }
+        },
+
     },
 
     created() {
@@ -97,12 +106,13 @@ export default {
                         </h2>
                         <p>
                         <figure class="flagImg">
-                            <img :src="getImagePath(`../assets/imgs/flags/${movie.original_language}.svg`)"
+                            <img v-if="flagsArray.includes(movie.original_language)"
+                                :src="getImagePath(`../assets/imgs/flags/${movie.original_language}.svg`)"
                                 alt="flag for this language not found">
+                            <p class="alterantiveTextToFlag" v-else>
+                                Flag not found. Language: {{ movie.original_language }}
+                            </p>
                         </figure>
-                        <br>
-                        {{ movie.original_language }}
-                        <br>
                         {{ movie.vote_average }}
                         </p>
                     </li>
@@ -116,7 +126,11 @@ export default {
                         </h2>
                         <p>
                         <figure class="flagImg">
-                            <img :src="getImagePath(`../assets/imgs/flags/${serie.original_language}.svg`)" alt="">
+                            <img v-if="getImagePath(`../assets/imgs/flags/${serie.original_language}.svg`)"
+                                :src="getImagePath(`../assets/imgs/flags/${serie.original_language}.svg`)" alt="">
+                            <p v-else>
+                                The language is: {{ serie.original_language }}
+                            </p>
                         </figure>
                         <br>
                         {{ serie.original_language }}
@@ -143,5 +157,9 @@ figure.flagImg {
         object-fit: cover;
         border: 2px solid black;
     }
+}
+
+p.alterantiveTextToFlag {
+    width: 250px;
 }
 </style>
